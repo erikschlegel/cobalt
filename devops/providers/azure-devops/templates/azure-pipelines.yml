@@ -65,6 +65,7 @@ steps:
         echo "${substitution}/${SYSTEM_PULLREQUEST_SOURCEBRANCH}" || \
         echo "${BUILD_SOURCEBRANCH//$replace_string/$substitution}"`
     GIT_DIFF_UPSTREAMBRANCH="remotes/origin/master"
+    echo "running diff between $GIT_DIFF_SOURCEBRANCH / $GIT_DIFF_UPSTREAMBRANCH"
     . ./test-harness/init.sh --source-only
     git branch -a
     printenv
