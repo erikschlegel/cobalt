@@ -66,7 +66,7 @@ steps:
         echo "${BUILD_SOURCEBRANCH//$replace_string/$substitution}"`
     GIT_DIFF_UPSTREAMBRANCH="remotes/origin/master"
     . ./test-harness/init.sh --source-only
-
+    git branch -a
     build_test_harness $GIT_DIFF_UPSTREAMBRANCH \
                        $GIT_DIFF_SOURCEBRANCH \
                        $BASE_IMAGE
