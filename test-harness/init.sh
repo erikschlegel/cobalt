@@ -8,7 +8,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-declare -A TEST_RUN_MAP
+declare -A TEST_RUN_MAP=()
 declare BUILD_TEMPLATE_DIRS="build"
 declare BUILD_TEST_RUN_IMAGE="cobalt-test-harness"
 declare readonly TEMPLATE_DIR="infra/templates"
