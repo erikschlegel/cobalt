@@ -67,6 +67,8 @@ steps:
     GIT_DIFF_UPSTREAMBRANCH="remotes/origin/master"
     [ $GIT_DIFF_SOURCEBRANCH == $GIT_DIFF_UPSTREAMBRANCH ] && { GIT_DIFF_SOURCEBRANCH="$GIT_DIFF_SOURCEBRANCH~"; }
     echo "running diff between $GIT_DIFF_SOURCEBRANCH / $GIT_DIFF_UPSTREAMBRANCH"
+    git diff ${GIT_DIFF_UPSTREAMBRANCH} ${GIT_DIFF_SOURCEBRANCH} --name-only
+    echo "ran diff"
     . ./test-harness/init.sh --source-only
     git branch -a
     printenv
