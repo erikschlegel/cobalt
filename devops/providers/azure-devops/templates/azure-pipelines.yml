@@ -78,13 +78,15 @@ steps:
   displayName: 'Determine integration tests based off branch changes and load build path'
 
 - script: |
-      docker run -e ARM_SUBSCRIPTION_ID=$(AD-SP-SUBSCRIPTION-ID) \
-          -e ARM_CLIENT_ID=$(AD-SP-CLIENT-ID) \
-          -e ARM_CLIENT_SECRET=$(AD-SP-SECRET) \
-          -e ARM_TENANT_ID=$(AD-SP-TENANT-ID) \
-          -e DATACENTER_LOCATION=$DATACENTER_LOCATION \
-          -e TF_STATE_STORAGE_ACCT=$TF_STATE_STORAGE_ACCT \
-          -e TF_STATE_CONTAINER=$TF_STATE_CONTAINER \
-          -e ARM_ACCESS_KEY=$(ARM-ACCESS-KEY) \
-          --rm $BUILD_TEST_RUN_IMAGE:$BUILD_BUILDID
+    if test ! -z "$(docker images -q ${BUILD_TEST_RUN_IMAGE}:${BUILD_BUILDID})"; then
+        docker run -e ARM_SUBSCRIPTION_ID=$(AD-SP-SUBSCRIPTION-ID) \
+            -e ARM_CLIENT_ID=$(AD-SP-CLIENT-ID) \
+            -e ARM_CLIENT_SECRET=$(AD-SP-SECRET) \
+            -e ARM_TENANT_ID=$(AD-SP-TENANT-ID) \
+            -e DATACENTER_LOCATION=$DATACENTER_LOCATION \
+            -e TF_STATE_STORAGE_ACCT=$TF_STATE_STORAGE_ACCT \
+            -e TF_STATE_CONTAINER=$TF_STATE_CONTAINER \
+            -e ARM_ACCESS_KEY=$(ARM-ACCESS-KEY) \
+            --rm $BUILD_TEST_RUN_IMAGE:$BUILD_BUILDID
+    fi
   displayName: 'run the test harness container which deploys, validates and tears down modified terraform templates'
